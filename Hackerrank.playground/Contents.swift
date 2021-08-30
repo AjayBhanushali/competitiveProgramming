@@ -4,7 +4,6 @@ func dynamicArray(n: Int, queries: [[Int]]) -> [Int] {
     // Write your code here
     var answers: [Int] = []
     var dictionary:[Int:[Int]] = [:]
-    
     var lastAnswer = 0
     
     for query in queries {
@@ -13,15 +12,15 @@ func dynamicArray(n: Int, queries: [[Int]]) -> [Int] {
         let y = query[2]
         
         let idx = (x^lastAnswer) % n
-        
-        if queryType == 1 {
+        switch queryType {
+        case 1:
             if var value = dictionary[idx] {
                 value.append(y)
                 dictionary[idx] = value
             } else {
                 dictionary[idx] = [y]
             }
-        } else {
+        case 2:
             if let value = dictionary[idx] {
                 let idy = (y % value.count)
                 if let newValue = dictionary[idx] {
@@ -30,6 +29,7 @@ func dynamicArray(n: Int, queries: [[Int]]) -> [Int] {
                 }
                 
             }
+        default: continue
         }
     }
     
