@@ -1,5 +1,5 @@
 func partition(list: inout [Int], startIndex: Int, endIndex: Int) -> Int {
-    let pivot = list[endIndex]
+    let pivot = Int.random(in: startIndex...endIndex)
     var pIndex = startIndex
     
     for i in startIndex..<endIndex {
