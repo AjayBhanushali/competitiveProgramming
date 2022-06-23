@@ -1,8 +1,35 @@
+func printSums(list: [Int], sum: Int) {
+    print(checkSum(i: 0, array: [], total: 0))
+    func checkSum(i: Int, array: [Int], total: Int) {
+        var array = array
+        if total > sum {
+            return
+        }
+        if i == list.count {
+            if total == sum {
+                print(array)
+            }
+            return
+        }
+        let target = sum - total 
+        if list[i] <= target {
+            array.append(list[i])
+            checkSum(i: i, array: array, total: total + (array.last ?? 0))
+            array.removeLast()
+        }
+        checkSum(i: i+1, array: array, total: total)
+    }
+}
+
+printSums(list: [2,3,6,7], sum: 7)
+
+
+
 //https://leetcode.com/problems/container-with-most-water/
 func maxAreaa(_ height: [Int]) -> Int {
     var width = height.count-1
     var maxArea = 0
-    
+
     var short = 0
     var temp = 0
     for _ in 0..<height.count-1 {
@@ -26,14 +53,14 @@ func maxAreaa(_ height: [Int]) -> Int {
         }
         width -= 1
     }
-    
+
     return maxArea
 }
 func maxArea(_ height: [Int]) -> Int {
         var maxArea = 0
         var leftIndex = 0
         var rightIndex = height.count - 1
-        
+
         while leftIndex < rightIndex {
            if height[leftIndex] < height[rightIndex]{
                 maxArea = max(maxArea, height[leftIndex] * (rightIndex - leftIndex))
@@ -43,7 +70,7 @@ func maxArea(_ height: [Int]) -> Int {
                 rightIndex -= 1
             }
         }
-        
+
         return maxArea
     }
 maxArea([1,2,4,3])
@@ -107,7 +134,7 @@ func maxProfit(_ prices: [Int]) -> Int {
     }
     var max = min
     var maxProfit = 0
-    
+
     for day in 0..<prices.count {
         let price = prices[day]
         if price < min {
@@ -115,7 +142,7 @@ func maxProfit(_ prices: [Int]) -> Int {
             max = 0
             continue
         }
-        
+
         if price > max {
             max = price
             let newMaxProfit = max - min
@@ -125,7 +152,7 @@ func maxProfit(_ prices: [Int]) -> Int {
             continue
         }
     }
-    
+
     return maxProfit
 }
 
@@ -136,12 +163,12 @@ maxProfit([2,4,1])
 
 func maxSubArray(_ nums: [Int]) -> Int {
     var max: Int = nums.reduce(0, +)
-    
+
     var startIndex = 0
     var newLength = nums.count-1
-    
+
     var thatArray: Array<Int>.SubSequence?
-    
+
     for _ in 0..<nums.count {
         for _ in 0..<nums.count-newLength {
             let sum = nums[startIndex...(startIndex+newLength)].reduce(0, +)
@@ -162,16 +189,16 @@ maxSubArray([50,-2,1,-3,48,-1,2,1,-5])
 
 func maxSub(_ nums: [Int]) -> Int {
     var max: Int = nums.reduce(0, +)
-    
+
     var startIndex = 0
     var newLength = nums.count-1
-    
+
     var thatArray: Array<Int>.SubSequence?
-    
+
     for _ in 0..<nums.count {
         for _ in 0..<nums.count-newLength {
             let sum = nums[startIndex...(startIndex+newLength)].reduce(0, +)
-            
+
             if sum > max {
                 thatArray = nums[startIndex...(startIndex+newLength)]
                 max = sum
